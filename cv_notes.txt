@@ -1,0 +1,67 @@
+import numpy as np
+mylist=[1,2,3]
+arr=np.array(mylist)
+
+np.arange(10,100,20)//generates array from 10 to 100 with 20 step size(optioal)
+np.ones((3,5),int)//generates array a 3x5 matrics filed with 1 or 0
+
+np.random.seed(101)
+arr=np.random.randint(0,100,10)//randint(startingRange,EndRange,numberOfRandomNo.)
+arr.max()
+arr.min()
+arr.mean()
+arr.argmin()		//returns index of min number in array
+
+arr.shape
+arr.reshape((2,5))	change (1*10) to (2*5)
+mat=np.arange(0,100).reshape((10,10))
+mat[6,2]	//access specific element[r,c]
+mat[:,2]	//access all eleemnts of second colmun
+mat[2:6,2:9]	//access a sub-matrix with having rows from (2 to 5) and nd columns (2 to 8)
+newmat=mat.copy()	//copy all elements
+newmat[2:6,2:9]=0 	//setting selected elements zero.
+
+///////////////////////////////////////////////////////////////
+
+import numpy as np
+import matplotlib.pyplot as plt
+%matplotlib inline
+
+from PIL import Image
+
+pic=Image.open(r'C:\Users\th\Desktop\cv\cover.png')
+pic_arr=np.asarray(pic)		//convert img to array
+pic_arr.shape			//get shape of array
+plt.imshow(pic_arr)		//plot arr
+
+pic_red=pic_arr.copy()
+pic_red[:,:,1]=0
+pic_red[:,:,2]=0
+plt.imshow(pic_red)	//shows only red channel GB are set to zero
+
+
+//////////////////////////////openCV/////////////////////////////////////////////
+import matplotlib.pyplot as plt
+%matplotlib inline
+import cv2
+
+img=cv2.imread('cover.png')
+img=cv2.cvtColor(img,cv2.COLOR_BGR2RGB)		//convert bgr to rgb
+
+img=cv2.imread('cover.png',cv2.IMREAD_GRAYSCALE)	//read directly in grayscale
+plt.imshow(img,cmap='gray')		//show in gray scale
+
+nimg=cv2.resize(img,(600,600))
+nimg=cv2.resize(img,(0,0),img,0.2,0.2)	//resize in ratio
+
+nimg=cv2.flip(img,1)
+
+fig=plt.figure(figsize=(10,8))	//nt important
+ax=fig.add_subplot(111)
+ax.imshow(img)
+
+/////////////////////////////////drawing in openCV///////////////////////////////////////////
+cv2.rectangle(img,pt1=(200,200),pt2=(300,300),color=(0,0,255),thickness=10)
+cv2.circle(img,center=(400,100),radius=50,color=(255,0,0),thickness=-1)
+cv2.line(img,pt1=(0,0),pt2=(512,512),color=(255,0,255),thickness=10)
+cv2.putText(img,text="pakistan",org=(10,450),fontFace=cv2.FONT_HERSHEY_COMPLEX,fontScale=2,color=(255,255,255),thickness=4,lineType=cv2.LINE_AA)
